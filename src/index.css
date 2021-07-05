@@ -1,0 +1,7 @@
+.nav-link:hover {
+  color: rgb(255, 248, 255) !important;
+}
+
+.active {
+  color: rgb(255, 248, 255) !important;
+}

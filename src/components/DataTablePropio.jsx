@@ -1,6 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import "./loader.css";
+
+import { Loading } from "./common/Loading";
 
 export const DataTablePropio = ({
   columns,
@@ -16,21 +17,7 @@ export const DataTablePropio = ({
           columns={columns}
           data={data}
           title={title}
-          noDataComponent={
-            <>
-              {" "}
-              {loading ? (
-                <div class="lds-ring">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              ) : (
-                <h1>Sin datos</h1>
-              )}
-            </>
-          }
+          noDataComponent={<> {loading ? <Loading /> : <h1>Sin datos</h1>}</>}
           pagination={pagination}
           paginationComponentOptions={{
             rowsPerPageText: "Filas por página:",
