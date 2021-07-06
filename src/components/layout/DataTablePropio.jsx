@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 
-import { Loading } from "./common/Loading";
+import { Loading } from "../common/Loading";
 
 export const DataTablePropio = ({
   columns,

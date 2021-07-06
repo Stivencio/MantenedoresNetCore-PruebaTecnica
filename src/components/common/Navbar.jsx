@@ -10,19 +10,28 @@ const Navbar = () => {
             <Link to="/" className="nav-link px-2 text-secondary">
               Home
             </Link>
-            <Link to="/FormUsuario" className="nav-link px-2 text-secondary">
+            <Link
+              to="/forms/FormUsuario"
+              className="nav-link px-2 text-secondary"
+            >
               FormUsuario
             </Link>
             <Link
-              to="/FormUsuarioObservaciones"
+              to="/forms/FormUsuarioObservaciones"
               className="nav-link  px-2 text-secondary"
             >
               FormUsuarioObservaciones
             </Link>
-            <Link to="/EstadoUsuario" className="nav-link px-2 text-secondary">
+            <Link
+              to="/data/EstadoUsuario"
+              className="nav-link px-2 text-secondary"
+            >
               EstadoUsuario
             </Link>
-            <Link to="/Nacionalidades" className="nav-link px-2 text-secondary">
+            <Link
+              to="/data/Nacionalidades"
+              className="nav-link px-2 text-secondary"
+            >
               Nacionalidades
             </Link>
           </header>

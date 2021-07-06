@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DataTablePropio } from "./DataTablePropio";
+import { DataTablePropio } from "../../layout/DataTablePropio";
 
 const Nacionalidades = () => {
   const [data, setData] = useState([]);

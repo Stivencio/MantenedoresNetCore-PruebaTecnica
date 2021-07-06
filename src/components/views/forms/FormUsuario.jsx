@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 // import Select from "react-select";
-import { DataTablePropio } from "./DataTablePropio";
+import { DataTablePropio } from "../../layout/DataTablePropio";
 
 const FormUsuario = () => {
   const [data, setData] = useState([]);

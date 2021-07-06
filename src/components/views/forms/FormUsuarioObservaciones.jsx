@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DataTablePropio } from "./DataTablePropio";
+import { DataTablePropio } from "../../layout/DataTablePropio";
 
 const FormUsuarioObservaciones = () => {
   const [data, setData] = useState([]);
@@ -43,7 +43,6 @@ const FormUsuarioObservaciones = () => {
     fetch("https://localhost:44325/api/Usuarios")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUsuario(data);
       });
   }, []);
