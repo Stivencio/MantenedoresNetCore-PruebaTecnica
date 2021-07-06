@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 // import Select from "react-select";
 import { DataTablePropio } from "./DataTablePropio";
-import "./loader.css";
 
 const FormUsuario = () => {
   const [data, setData] = useState([]);
@@ -41,7 +40,6 @@ const FormUsuario = () => {
     fetch("https://localhost:44325/api/Usuarios")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setLoading(false);
         setData(data);
       });
@@ -53,7 +51,6 @@ const FormUsuario = () => {
     fetch("https://localhost:44325/api/Nacionalidads")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setNacionalidad(data);
         // setLoading(false);
       });

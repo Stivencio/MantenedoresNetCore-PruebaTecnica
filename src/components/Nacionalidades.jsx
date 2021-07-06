@@ -34,7 +34,6 @@ const Nacionalidades = () => {
     fetch("https://localhost:44325/api/Nacionalidads")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setLoading(false);
         setData(data);
       });
