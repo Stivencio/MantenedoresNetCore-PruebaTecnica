@@ -51,13 +51,25 @@ const FormUsuarioObservaciones = () => {
   const { register, errors, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log({
+    const dataPost = {
       id: 0,
       ...data,
       estado: true,
       fechaCreacion: "2021-07-05T23:35:16.069Z",
       fechaModificacion: "2021-07-05T23:35:16.069Z",
-    });
+    };
+
+    console.log(JSON.stringify(dataPost));
+
+    fetch("https://localhost:44325/api/UsuarioObservacions", {
+      method: "POST",
+      body: JSON.stringify(dataPost),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return (
@@ -116,8 +128,8 @@ const FormUsuarioObservaciones = () => {
                           message: "Mínimo 2 carácteres",
                         },
                         maxLength: {
-                          value: 15,
-                          message: "Máximo 15 carácteres",
+                          value: 30,
+                          message: "Máximo 30 carácteres",
                         },
                       })}
                     ></textarea>

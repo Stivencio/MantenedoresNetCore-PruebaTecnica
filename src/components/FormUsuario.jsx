@@ -13,6 +13,12 @@ const FormUsuario = () => {
   //Datatable columns
   const columns = [
     {
+      name: "id",
+      selector: "id",
+      grow: 0,
+      omit: true,
+    },
+    {
       name: "Nombre",
       selector: "nombre",
       sortable: true,
@@ -31,6 +37,28 @@ const FormUsuario = () => {
       name: "Correo",
       selector: "correo",
       sortable: true,
+    },
+    {
+      cell: (row) => (
+        <button className="btn btn-success" id={row.id}>
+          <i className="bi bi-pen"></i>
+          {row.id}
+        </button>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+    {
+      cell: (row) => (
+        <button className="btn btn-danger" id={row.id}>
+          <i className="bi bi-trash"></i>
+          {row.id}
+        </button>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
     },
   ];
 
@@ -63,7 +91,14 @@ const FormUsuario = () => {
 
   //React-hook-form
 
-  const { register, errors, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
+
+  //Vaciar formulario
+  const resetForm = () => {
+    document.getElementById("form-usuario").reset();
+  };
+
   const onSubmit = (data) => {
     const dataPost = {
       id: 0,
@@ -93,7 +128,15 @@ const FormUsuario = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        if (!data.status) {
+          resetForm();
+          alert("Usuario ingresado correctamente");
+        } else {
+          alert("No se pudo ingresar el usuario");
+        }
+      });
   };
 
   return (
@@ -106,7 +149,9 @@ const FormUsuario = () => {
             <h4 className="mb-3 text-center">{formulario}</h4>
             <br />
             <form
+              id="form-usuario"
               className="needs-validation"
+              noValidate
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="row g-3">
@@ -119,8 +164,7 @@ const FormUsuario = () => {
                     type="text"
                     className="form-control"
                     id="nombre"
-                    placeholder=""
-                    required=""
+                    name="nombre"
                     {...register("nombre", {
                       required: "Este campo es requerido",
                       minLength: {
@@ -131,12 +175,19 @@ const FormUsuario = () => {
                         value: 10,
                         message: "Máximo 10 carácteres",
                       },
+                      pattern: {
+                        value: /^[A-Za-z]+$/i,
+                        message: "Ingresa un nombre válido",
+                      },
                     })}
-                  ></input>
+                  />
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.nombre?.message}
-                  </div>
+                  {errors.nombre?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.nombre?.message}
+                    </span>
+                  )}
+
                   {/* Validación */}
                 </div>
 
@@ -149,7 +200,7 @@ const FormUsuario = () => {
                     className="form-control"
                     id="apellidoPaterno"
                     placeholder=""
-                    required=""
+                    required
                     {...register("apellidoPaterno", {
                       required: "Este campo es requerido",
                       minLength: {
@@ -160,12 +211,18 @@ const FormUsuario = () => {
                         value: 10,
                         message: "Máximo 10 carácteres",
                       },
+                      pattern: {
+                        value: /^[A-Za-z]+$/i,
+                        message: "Ingresa un apellido válido",
+                      },
                     })}
                   />
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.apellidoPaterno?.message}
-                  </div>
+                  {errors.apellidoPaterno?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.apellidoPaterno?.message}
+                    </span>
+                  )}
                   {/* Validación */}
                 </div>
                 <div className="col-sm-4">
@@ -188,12 +245,18 @@ const FormUsuario = () => {
                         value: 10,
                         message: "Máximo 10 carácteres",
                       },
+                      pattern: {
+                        value: /^[A-Za-z]+$/i,
+                        message: "Ingresa un apellido válido",
+                      },
                     })}
                   />
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.apellidoMaterno?.message}
-                  </div>
+                  {errors.apellidoManterno?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.apellidoManterno?.message}
+                    </span>
+                  )}
                   {/* Validación */}
                 </div>
 
@@ -209,19 +272,25 @@ const FormUsuario = () => {
                     {...register("correo", {
                       required: "Este campo es requerido",
                       minLength: {
-                        value: 2,
-                        message: "Mínimo 2 carácteres",
+                        value: 3,
+                        message: "Mínimo 3 carácteres",
                       },
                       maxLength: {
-                        value: 10,
-                        message: "Máximo 10 carácteres",
+                        value: 30,
+                        message: "Máximo 30 carácteres",
+                      },
+                      pattern: {
+                        value: /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim,
+                        message: "Ingresa un correo válido",
                       },
                     })}
                   />
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.correo?.message}
-                  </div>
+                  {errors.correo?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.correo?.message}
+                    </span>
+                  )}
                   {/* Validación */}
                 </div>
                 <div className="col-sm-12">
@@ -240,15 +309,22 @@ const FormUsuario = () => {
                         message: "Mínimo 2 carácteres",
                       },
                       maxLength: {
-                        value: 10,
-                        message: "Máximo 10 carácteres",
+                        value: 30,
+                        message: "Máximo 30 carácteres",
+                      },
+                      pattern: {
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@[-`{-~]).{6,64}$/,
+                        message: "Ingresa una contraseña válida",
                       },
                     })}
                   ></input>
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.password?.message}
-                  </div>
+                  {errors.password?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.password?.message}
+                    </span>
+                  )}
                   {/* Validación */}
                 </div>
                 <div className="col-md-12">
@@ -290,9 +366,11 @@ const FormUsuario = () => {
                   {/* <div><b>Selected Value: </b> {selectedValue}</div> */}
 
                   {/* Validación */}
-                  <div className="invalid-feedback">
-                    {errors?.idNacionalidad?.message}
-                  </div>
+                  {errors.idNacionalidad?.message && (
+                    <span className="text-danger d-block mb-2">
+                      {errors.idNacionalidad?.message}
+                    </span>
+                  )}
                   {/* Validación */}
                 </div>
                 {/* Form-Controls */}
