@@ -9,7 +9,7 @@ const FormUsuario = () => {
   const [nacionalidad, setNacionalidad] = useState([]);
   const [tempdata, setTempdata] = useState({
     // nombre: "asdasdas",
-    // apellidoPaterno: "asdasd",
+    // apellid0oPaterno: "asdasd",
     // apellidoManterno: "asdasd",
     // correo: "asdasd@asda.com",
     // idNacionalidad: 2,
@@ -124,7 +124,6 @@ const FormUsuario = () => {
   }, []);
 
   //React-hook-form
-
   const { register, handleSubmit, formState } = useForm({
     defaultValues: tempdata,
   });
@@ -186,7 +185,7 @@ const FormUsuario = () => {
 
   //handleUpdate
   const handleUpdate = (idUser) => {
-    console.log("idUser");
+    console.log(tempdata);
   };
 
   //cancelUpdate
@@ -206,10 +205,6 @@ const FormUsuario = () => {
     setEditing(true);
   };
 
-  useEffect(() => {
-    console.log(tempdata);
-  });
-
   return (
     <>
       <div className="container">
@@ -220,7 +215,12 @@ const FormUsuario = () => {
             <div className="col-md-6 col-lg-6">
               <h4 className="mb-3 text-center">{formulario}</h4>
               <br />
-              <form id="form-usuario" className="needs-validation" noValidate>
+              <form
+                id="form-usuario"
+                className="needs-validation"
+                noValidate
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div className="row g-3">
                   {/* Form-Controls */}
                   <div className="col-sm-4">
@@ -434,31 +434,31 @@ const FormUsuario = () => {
                 </div>
                 <hr className="my-4"></hr>
 
-                {!!!editing ? (
+                {!!!editing && (
                   <button
                     className="w-100 btn btn-primary btn-lg"
                     type="submit"
-                    onClick={handleSubmit(onSubmit)}
                   >
                     Ingresar
                   </button>
-                ) : (
-                  <>
-                    <button
-                      className="w-100 btn btn-warning btn-lg"
-                      onClick={() => handleUpdate()}
-                    >
-                      Actualizar
-                    </button>
-                    <button
-                      className="w-100 btn btn-danger btn-lg mt-2"
-                      onClick={() => cancelUpdate()}
-                    >
-                      Cancelar
-                    </button>
-                  </>
                 )}
               </form>
+              {editing && (
+                <>
+                  <button
+                    className="w-100 btn btn-warning btn-lg"
+                    onClick={() => handleUpdate()}
+                  >
+                    Actualizar
+                  </button>
+                  <button
+                    className="w-100 btn btn-danger btn-lg mt-2"
+                    onClick={() => cancelUpdate()}
+                  >
+                    Cancelar
+                  </button>
+                </>
+              )}
             </div>
             {/* Formulario */}
             {/* DataTable */}
